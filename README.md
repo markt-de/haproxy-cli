@@ -1,49 +1,47 @@
-haproxy-cli
-==========
+# haproxy-cli
 
-A tool to interact with HAProxy
+[![CI](https://github.com/markt-de/haproxy-cli/actions/workflows/build.yaml/badge.svg)](https://github.com/markt-de/haproxy-cli/actions/workflows/build.yaml)
+[![PyPI version](https://badge.fury.io/py/haproxy-cli.svg)](https://badge.fury.io/py/haproxy-cli)
 
-About
---------
+haproxy-cli - A tool to interact with HAProxy.
+
+#### Table of Contents
+
+1. [Overview](#overview)
+1. [Install](#install)
+1. [Modes](#modes)
+1. [CLI Usage](#cli-usage)
+1. [Development](#development)
+    - [Contributing](#contributing)
+
+
+## Overview
 
 haproxy-cli is a tool to manage the various aspects of HAProxy that can be controlled by means of its socket.
+It is based on [haproxyctl](https://github.com/neurogeek/haproxyctl/) and is actively used in the OPNsense [HAProxy plugin](https://github.com/opnsense/plugins).
 
-With haproxy-cli, it is possible to do the following:
+## Install
 
-(New in 0.5)
-* Support for Python3. 
+```
+pip install haproxy-cli
+```
 
-(New in 0.4)
-* Ability to pass a tcp:// or a unix:// socket address to -k|--socket
+## Modes
 
-(New in 0.3)
-* frontends  -  Lists available Frontends. Arguments: None
-* backends  -  Lists available Backends. Arguments: None
-
-(New in 0.2)
-* info  -  Shows errors on HAProxy instance. Arguments: None
-* enable  -  Enables given backend/server Arguments: backend,server
-* disable  -  Disables given backend/server Arguments: backend,server
-* get-weight  -  Get weight for a given backend/server. Arguments: backend,server	
-* set-weight  -  Set weight for a given backend/server. Arguments: backend,server,weight
-* servers  -  Lists servers in the given backend Arguments: backend
-
-Modes
------
-
-haproxy-cli can be used in 2 modes. CLI mode and Python API mode. 
+haproxy-cli can be used in 2 modes: CLI mode and Python API mode.
 CLI mode, as the name implies, gives you a command, haproxy-cli, that can be used to control HAProxy.
 
 You can use the Python API mode to integrate haproxy-cli directly in your Python project.
 
-Every command in haproxy-cli has at least two methods: getResult and getResultObj. 
+Every command in haproxy-cli has at least two methods: getResult and getResultObj.
 
 The method getResult returns a formatted string with the results obtained by executing the given HAProxy command, while getResultObj returns a Python object with the results, making it easy to use this results in some Python code.
 
-CLI Usage
----------
+## CLI Usage
 
 ```
+$ haproxy-cli --help
+
 usage: haproxy-cli [-h] [-v] [-c COMMAND] [-l] [-H] [-s SERVER] [-b BACKEND]
                   [-w WEIGHT] [-k SOCKET]
 
@@ -68,3 +66,9 @@ optional arguments:
                         addresses. If there is no match
                         for protocol, then it assumes a UNIX socket file.
 ```
+
+## Development
+
+### Contributing
+
+Please use the GitHub issues functionality to report any bugs or requests for new features. Feel free to fork and submit pull requests for potential contributions.

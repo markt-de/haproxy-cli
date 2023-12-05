@@ -1,23 +1,43 @@
-2015 May, 19.
-	0.4
-		- Added support for specifying sockets as a TCP socket:
-		  - support for -k tcp://1.2.3.4:port
-		  - support for -k unix:///some/path
+# Changelog
 
-2013 Nov, 4.
-	0.3.1
-		- Fixed wrong self accidentally passed to self._getResult.
+All notable changes to this project will be documented in this file.
 
-2013 Oct, 31.
-	0.3
-		- Added new commands (frontends, backends)
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-2013 May, 8.
-	0.2
-		- Added new commands (get weight, set weight, servers)
-		- Fixed problems with the buffer size while reading from the socket.
-		- Restructured command execution and arguments in haproxyctl
+## v0.5.0 - 2015-05-24
 
-2013 May, 7.
-	0.1
-		- Initial development.
+### Changed
+* Support for Python3
+
+## v0.4.0 - 2015-05-19
+
+### Added
+* Added support for specifying sockets as a TCP socket:
+* support for -k tcp://1.2.3.4:port
+* support for -k unix:///some/path
+
+## v0.3.1 - 2013-11-04
+
+### Fixed
+* Fixed wrong self accidentally passed to self._getResult.
+
+## v0.3.0 - 2013-10-31
+
+### Added
+* Added new commands (frontends, backends)
+
+## v0.2.0 - 2013-05-08
+
+### Added
+* Added new commands (get weight, set weight, servers)
+
+### Changed
+* Restructured command execution and arguments in haproxyctl
+
+### Fixed
+* Fixed problems with the buffer size while reading from the socket.
+
+## v0.1.0 - 2013-05-07
+
+Initial release of haproxyctl.
