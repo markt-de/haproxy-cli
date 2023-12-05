@@ -1,9 +1,15 @@
-#!/usr/bin/env python
-
+import os
 from distutils.core import setup
 
-setup(name='haproxy-cli',
-      version='0.6',
+from haproxy import __version__
+
+_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+      name='haproxy-cli',
+      version=__version__,
       description='A tool to interact with HAProxy',
       author='markt.de',
       author_email='github-oss-noreply@markt.de',
@@ -13,6 +19,8 @@ setup(name='haproxy-cli',
           'Documentation': 'https://github.com/markt-de/haproxy-cli',
           'Source Code': 'https://github.com/markt-de/haproxy-cli',
       },
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       packages=['haproxy'],
       scripts=['bin/haproxy-cli'],
       python_requires='>=3.7',
