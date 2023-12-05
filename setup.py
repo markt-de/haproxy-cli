@@ -6,7 +6,7 @@ setup(name='haproxy-cli',
       version='1.0',
       description='A tool to interact with HAProxy',
       author='markt.de',
-      author_email='github-oss@markt.de',
+      author_email='github-oss-noreply@markt.de',
       license='GPL-3',
       project_urls={
           'Bug Tracker': 'https://github.com/markt-de/haproxy-cli/issues',
