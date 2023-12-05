@@ -11,6 +11,9 @@ haproxy-cli - A tool to interact with HAProxy.
 1. [Install](#install)
 1. [Modes](#modes)
 1. [CLI Usage](#cli-usage)
+1. [Examples](#examples)
+    - [CLI](#cli)
+    - [API](#api)
 1. [Development](#development)
     - [Contributing](#contributing)
 
@@ -65,6 +68,42 @@ optional arguments:
                         unix:///path/to/socket or tcp://1.2.3.4[:port]
                         addresses. If there is no match
                         for protocol, then it assumes a UNIX socket file.
+```
+
+## Examples
+
+### CLI
+
+```
+$ haproxy-cli -c frontends
+
+$ haproxy-cli -c servers -b example_backend
+
+$ haproxy-cli -c get-weight -b example_backend -s server1
+
+$ haproxy-cli -c set-weight -b example_backend -s server1 -w 99
+
+$ haproxy-cli -k /run/haproxy/admin.sock -c backends
+```
+
+### API
+
+```
+#!/usr/bin/env python
+
+from haproxy.conn import HaPConn
+from haproxy import cmds
+
+try:
+    socket_conn = HaPConn('/var/run/haproxy.socket')
+
+    if socket_conn:
+        print(socket_conn.sendCmd(cmds.showInfo()))
+    else:
+        print('Could not open socket')
+
+except Exception as exc:
+    print(exc)
 ```
 
 ## Development
