@@ -17,7 +17,7 @@ class SimpleConnMock(object):
         pass
 
 class TestConnection(unittest.TestCase):
-    """Tests different aspects of haproxyctl's connections to HAProxy."""
+    """Tests different aspects of haproxy-cli's connections to HAProxy."""
 
     def testConnSimple(self):
         """Tests that connection to non-protocol path works and fallsback to UNIX socket."""

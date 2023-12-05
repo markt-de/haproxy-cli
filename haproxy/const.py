@@ -1,4 +1,4 @@
-"""const.py - Constants for haproxyctl."""
+"""const.py - Constants for haproxyc-cli."""
 HAP_OK = 1
 HAP_ERR = 2
 HAP_SOCK_ERR = 3

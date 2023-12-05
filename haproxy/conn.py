@@ -5,7 +5,7 @@ from socket import socket, AF_INET, AF_UNIX, SOCK_STREAM
 from haproxy import const
 
 class HapError(Exception):
-    """Generic exception for haproxyctl."""
+    """Generic exception for haproxy-cli."""
     pass
 
 class HaPConn(object):

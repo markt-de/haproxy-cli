@@ -1,19 +1,14 @@
-HAProxyctl
+haproxy-cli
 ==========
 
-HAProxy control tool
-
-Build Status
-------------
-
-[![Build Status](https://travis-ci.org/neurogeek/haproxyctl.png?branch=master)](https://travis-ci.org/neurogeek/haproxyctl)
+A tool to interact with HAProxy
 
 About
 --------
 
-HAProxyctl is a tool to manage the various aspects of HAProxy that can be controlled by means of its socket.
+haproxy-cli is a tool to manage the various aspects of HAProxy that can be controlled by means of its socket.
 
-With HAProxyctl, it is possible to do the following:
+With haproxy-cli, it is possible to do the following:
 
 (New in 0.5)
 * Support for Python3. 
@@ -36,12 +31,12 @@ With HAProxyctl, it is possible to do the following:
 Modes
 -----
 
-HAProxyctl can be used in 2 modes. CLI mode and Python API mode. 
-CLI mode, as the name implies, gives you a command, haproxyctl, that can be used to control HAProxy.
+haproxy-cli can be used in 2 modes. CLI mode and Python API mode. 
+CLI mode, as the name implies, gives you a command, haproxy-cli, that can be used to control HAProxy.
 
-You can use the Python API mode to integrate HAProxyctl directly in your Python project.
+You can use the Python API mode to integrate haproxy-cli directly in your Python project.
 
-Every command in HAProxyctl has at least two methods: getResult and getResultObj. 
+Every command in haproxy-cli has at least two methods: getResult and getResultObj. 
 
 The method getResult returns a formatted string with the results obtained by executing the given HAProxy command, while getResultObj returns a Python object with the results, making it easy to use this results in some Python code.
 
@@ -49,10 +44,10 @@ CLI Usage
 ---------
 
 ```
-usage: haproxyctl [-h] [-v] [-c COMMAND] [-l] [-H] [-s SERVER] [-b BACKEND]
+usage: haproxy-cli [-h] [-v] [-c COMMAND] [-l] [-H] [-s SERVER] [-b BACKEND]
                   [-w WEIGHT] [-k SOCKET]
 
-Tool to interact with HAProxy
+A tool to interact with HAProxy
 
 optional arguments:
   -h, --help            show this help message and exit

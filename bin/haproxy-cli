@@ -2,14 +2,14 @@
 # pylint: disable=locally-disabled
 # pylint: disable=star-args
 """
-Tool to interact with HAProxy.
+A tool to interact with HAProxy.
 
 Notes
 =====
 
-haproxyctl looks for a configuration file on the following places:
-1) Global: /etc/haproxyctl/haproxyctl.conf
-2) User: ~/.haproxyctl.conf
+haproxy-cli looks for a configuration file on the following places:
+1) Global: /etc/haproxy-cli/haproxy-cli.conf
+2) User: ~/.haproxy-cli.conf
 3) Command line options.
 
 This order is important, since options in the global file will
@@ -32,13 +32,13 @@ except ImportError:
     from ConfigParser import ConfigParser
 
 
-GCONFIG = "/etc/haproxyctl/"
+GCONFIG = "/etc/haproxy-cli/"
 UCONFIG = os.path.expanduser("~/.")
 
 def parse_args():
     """Parse command line arguments."""
     config = process_config_files()
-    opts = argparse.ArgumentParser(description="Tool to interact with HAProxy", prog="haproxyctl")
+    opts = argparse.ArgumentParser(description="A tool to interact with HAProxy", prog="haproxy-cli")
 
     opts.add_argument("-v", "--verbose", help="Be verbose.",
                       action="store_true", default=config.get('verbose', False))
@@ -61,12 +61,12 @@ def parse_args():
     return opts.parse_args()
 
 def process_config_files():
-    """Processes the configuration file for haproxyctl and returns them as a dictionary."""
+    """Processes the configuration file for haproxy-cli and returns them as a dictionary."""
     config_opts = {}
     cfgp = ConfigParser()
 
     for cfg in [GCONFIG, UCONFIG]:
-        cfgf = "".join((cfg, "haproxyctl.conf"))
+        cfgf = "".join((cfg, "haproxy-cli.conf"))
         if os.path.exists(cfgf):
             cfgp.read(cfgf)
             for key, value in cfgp.items("global"):
@@ -75,7 +75,7 @@ def process_config_files():
     return config_opts
 
 def main(args):
-    """Main function for haproxyctl."""
+    """Main function for haproxy-cli."""
 
     cmdline = {"backend" : args.backend,
                "weight" : args.weight,
