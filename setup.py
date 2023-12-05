@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='haproxy-cli',
-      version='1.0',
+      version='0.6',
       description='A tool to interact with HAProxy',
       author='markt.de',
       author_email='github-oss-noreply@markt.de',

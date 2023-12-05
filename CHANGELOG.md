@@ -5,17 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## v0.6.0
+## [v0.6.0] - 2023-12-05
 
 ### Added
-* new command: showServers (API, JSON output)
-* new command: set/getServerWeight
-* new output formats: json, bootstrap (API)
+* New API commands: showServers, set/getServerWeight
+* New API output formats: json, bootstrap (OPNsense)
 
 ### Changed
-* map commands disableServer and enableServer to `set server state maint|ready`
-* print 'None' if no output is returned by HAProxy
-* decode HAProxy socket output as UTF-8 instead of ASCII
+* Map commands disableServer and enableServer to `set server state maint|ready`
+* Print 'None' if no output is returned by HAProxy
+* Decode HAProxy socket output as UTF-8 instead of ASCII
 
 ## v0.5.0 - 2015-05-24
 
@@ -53,3 +52,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## v0.1.0 - 2013-05-07
 
 Initial release of haproxyctl.
+
+[Unreleased]: https://github.com/markt-de/haproxy-cli/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/markt-de/haproxy-cli/compare/v0.5.0...v0.6.0

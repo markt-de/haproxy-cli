@@ -1,4 +1,0 @@
-[global]
-verbose = 1
-socket = /tmp/haproxy.sock
-backend = mybackend
