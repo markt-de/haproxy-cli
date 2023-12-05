@@ -1,9 +1,11 @@
 # pylint: disable=star-args, locally-disabled, too-few-public-methods, no-self-use, invalid-name
 """test_cmds.py - Unittests related to command implementations."""
-import sys, os, unittest
+import sys
+import os
+import unittest
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-from haproxy import cmds
+from haproxy import cmds  # noqa: E402
 
 
 class TestCommands(unittest.TestCase):
@@ -144,8 +146,10 @@ class TestCommands(unittest.TestCase):
             "show-ssl-crt-list": "show ssl crt-list -n /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist",
             "show-ssl-certs": "show ssl cert",
             "show-ssl-cert": "show ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",
-            "add-to-crt-list": "add ssl crt-list /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist /tmp/haproxy/ssl/601a70e4844b0.pem",
-            "del-from-crt-list": "del ssl crt-list /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist /tmp/haproxy/ssl/601a70e4844b0.pem",
+            "add-to-crt-list": ("add ssl crt-list /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist"
+                                " /tmp/haproxy/ssl/601a70e4844b0.pem"),
+            "del-from-crt-list": ("del ssl crt-list /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist"
+                                  " /tmp/haproxy/ssl/601a70e4844b0.pem"),
             "new-ssl-cert": "new ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",
             "update-ssl-cert": "set ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem <<\n%s" % self.pem_cert_content,
             "del-ssl-cert": "del ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",

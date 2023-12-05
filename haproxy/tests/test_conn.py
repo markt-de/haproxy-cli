@@ -1,10 +1,12 @@
 # pylint: disable=locally-disabled, too-few-public-methods, no-self-use, invalid-name, broad-except
 """test_conn.py - Unittests related to connections to HAProxy."""
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-from haproxy import conn
+import sys
+import os
 import unittest
 from socket import AF_INET, AF_UNIX
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from haproxy import conn  # noqa: E402
+
 
 class SimpleConnMock(object):
     """Simple socket mock."""
@@ -15,6 +17,7 @@ class SimpleConnMock(object):
     def connect(self, addr):
         """Mocked socket.connect method."""
         pass
+
 
 class TestConnection(unittest.TestCase):
     """Tests different aspects of haproxy-cli's connections to HAProxy."""
@@ -54,6 +57,7 @@ class TestConnection(unittest.TestCase):
             raise Exception('Connection should have thrown an exception')
         except conn.HapError:
             pass
+
 
 if __name__ == '__main__':
     unittest.main()

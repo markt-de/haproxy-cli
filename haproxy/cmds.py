@@ -5,6 +5,7 @@ import json
 from collections import OrderedDict
 from io import StringIO
 
+
 class Cmd():
     """Cmd - Command base class"""
     req_args = []
@@ -44,8 +45,8 @@ class Cmd():
         """ Returns results gathered from HAProxy as jquery bootstrap output """
         args = {
             "rows": resObj,
-            "page": int(self.args['page']) if self.args['page'] != None else 1,
-            "page_rows": int(self.args['page_rows']) if self.args['page_rows'] != None else len(rows),
+            "page": int(self.args['page']) if self.args['page'] is not None else 1,
+            "page_rows": int(self.args['page_rows']) if self.args['page_rows'] is not None else len(resObj),
             "search": self.args['search'],
             "sort_col": self.args['sort_col'] if self.args['sort_col'] else 'id',
             "sort_dir": self.args['sort_dir'],
@@ -104,36 +105,42 @@ class Cmd():
         """Returns refined output from HAProxy, packed inside a Python obj i.e. a dict()"""
         return res
 
+
 class setServerAgent(Cmd):
     cmdTxt = "set server %(backend)s/%(server)s agent %(value)s\r\n"
     req_args = ['backend', 'server', 'value']
     helpTxt = "Force a server's agent to a new state."
+
 
 class setServerHealth(Cmd):
     cmdTxt = "set server %(backend)s/%(server)s health %(value)s\r\n"
     req_args = ['backend', 'server', 'value']
     helpTxt = "Force a server's health to a new state."
 
+
 class setServerState(Cmd):
     cmdTxt = "set server %(backend)s/%(server)s state %(value)s\r\n"
     req_args = ['backend', 'server', 'value']
     helpTxt = "Force a server's administrative state to a new state."
+
 
 class setServerWeight(Cmd):
     cmdTxt = "set server %(backend)s/%(server)s weight %(value)s\r\n"
     req_args = ['backend', 'server', 'value']
     helpTxt = "Force a server's weight to a new state."
 
+
 class showSslCrtLists(Cmd):
     cmdTxt = "show ssl crt-list\r\n"
     helpTxt = "Show the list of crt-lists."
 
     def getResultObj(self, res):
-        result = { "crt_lists": []}
+        result = {"crt_lists": []}
         for line in res.split("\n"):
             if line.startswith('/'):
                 result["crt_lists"].append(line)
         return result
+
 
 class showSslCrtList(Cmd):
     cmdTxt = "show ssl crt-list -n %(crt_list)s\r\n"
@@ -152,9 +159,10 @@ class showSslCrtList(Cmd):
                 result["certs"].append(line)
 
         if result:
-           return result
+            return result
 
         return {"error": res.strip()}
+
 
 class showSslCerts(Cmd):
     cmdTxt = "show ssl cert\r\n"
@@ -171,6 +179,7 @@ class showSslCerts(Cmd):
             elif line.startswith('/'):
                 result['filename'].append(line)
         return result
+
 
 class showSslCert(Cmd):
     cmdTxt = "show ssl cert %(certfile)s\r\n"
@@ -196,15 +205,18 @@ class showSslCert(Cmd):
 
         return {"error": res.strip()}
 
+
 class addToSslCrtList(Cmd):
     cmdTxt = "add ssl crt-list %(crt_list)s %(certfile)s\r\n"
     req_args = ['crt_list', 'certfile']
     helpTxt = "Add a ssl cert to a crt-list."
 
+
 class delFromSslCrtList(Cmd):
     cmdTxt = "del ssl crt-list %(crt_list)s %(certfile)s\r\n"
     req_args = ['crt_list', 'certfile']
     helpTxt = "Delete a ssl cert from a crt-list."
+
 
 class newSslCrt(Cmd):
     """" Create an empty slot for the certificate in HAProxy’s memory """
@@ -212,11 +224,13 @@ class newSslCrt(Cmd):
     req_args = ['certfile']
     helpTxt = "Create a new certificate file to be used in a crt-list or a directory."
 
+
 class updateSslCrt(Cmd):
     """" Begin a transaction to upload the certificate into a slot in HAProxy’s memory """
     cmdTxt = "set ssl cert %(certfile)s <<\n%(payload)s\r\n"
     req_args = ['certfile', 'payload']
     helpTxt = "Replace a certificate file."
+
 
 class delSslCrt(Cmd):
     """" Begin a transaction to remove the certificate from a slot in HAProxy’s memory """
@@ -224,16 +238,19 @@ class delSslCrt(Cmd):
     req_args = ['certfile']
     helpTxt = "Delete delete an unused certificate file."
 
+
 class commitSslCrt(Cmd):
     """ Commit the transaction so HAProxy detects the change. """
     cmdTxt = "commit ssl cert %(certfile)s\r\n"
     req_args = ['certfile']
     helpTxt = "Commit a certificate file."
 
+
 class abortSslCrt(Cmd):
     cmdTxt = "abort ssl cert %(certfile)s\r\n"
     req_args = ['certfile']
     helpTxt = "Abort a transaction for a certificate file."
+
 
 class showFBEnds(Cmd):
     """Base class for getting a listing Frontends and Backends"""
@@ -265,15 +282,18 @@ class showFBEnds(Cmd):
                 result.append(e.split(",")[0])
         return result
 
+
 class showFrontends(showFBEnds):
     """Show frontends command."""
     switch = "frontend"
     helpTxt = "List all Frontends."
 
+
 class showBackends(showFBEnds):
     """Show backends command."""
     switch = "backend"
     helpTxt = "List all Backends."
+
 
 class showInfo(Cmd):
     """Show info HAProxy command"""
@@ -288,6 +308,7 @@ class showInfo(Cmd):
 
         return resDict
 
+
 class showSessions(Cmd):
     """Show sess HAProxy command"""
     cmdTxt = "show sess\r\n"
@@ -295,6 +316,7 @@ class showSessions(Cmd):
 
     def getResultObj(self, res):
         return res.split('\n')
+
 
 class baseStat(Cmd):
     """Base class for stats commands."""
@@ -307,6 +329,7 @@ class baseStat(Cmd):
 
         csv_string = StringIO(res)
         return csv.DictReader(csv_string, delimiter=',')
+
 
 class showServers(baseStat):
     """Show all servers. If backend is given, show only servers for this backend. """
