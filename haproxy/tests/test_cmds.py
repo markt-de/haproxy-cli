@@ -133,7 +133,8 @@ class TestCommands(unittest.TestCase):
         """
 
         self.Resp = {
-            "disable": "disable server redis-ro/redis-ro0",
+            "enable": "set server server redis-ro/redis-ro0 state ready",
+            "disable": "set server server redis-ro/redis-ro0 state maint",
             "set-server-agent": "set server redis-ro/redis-ro0 agent up",
             "set-server-health": "set server redis-ro/redis-ro0 health stopping",
             "set-server-state": "set server redis-ro/redis-ro0 state drain",

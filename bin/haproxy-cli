@@ -84,7 +84,7 @@ def main(args):
     cmd_map = {"info" : cmds.showInfo,
                "enable" : cmds.enableServer,
                "disable" : cmds.disableServer,
-               "get-weight" : cmds.getWeight,
+               "get-weight" : cmds.getServerWeight,
                "servers" : cmds.listServers,
                "set-weight" : cmds.setWeight,
                "frontends" : cmds.showFrontends,

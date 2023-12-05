@@ -93,10 +93,10 @@ class Cmd():
         if res == '\n':
             res = None
 
-        if self.args['output'] == 'json':
+        if 'output' in self.args and self.args['output'] == 'json':
             return self.getJsonOutput(self.getResultObj(res))
 
-        if self.args['output'] == 'bootstrap':
+        if 'output' in self.args and self.args['output'] == 'bootstrap':
             return self.getBootstrapOutput(self.getResultObj(res))
 
         return res
@@ -104,6 +104,34 @@ class Cmd():
     def getResultObj(self, res):
         """Returns refined output from HAProxy, packed inside a Python obj i.e. a dict()"""
         return res
+
+
+class disableServer(Cmd):
+    """Disable backend/server command."""
+    cmdTxt = "set server %(backend)s/%(server)s state maint\r\n"
+    req_args = ["backend", "server"]
+    helpTxt = "Sets given backend/server state to maint"
+
+
+class enableServer(Cmd):
+    """Enable backend/server command."""
+    cmdTxt = "set server %(backend)s/%(server)s state ready\r\n"
+    req_args = ["backend", "server"]
+    helpTxt = "Sets given backend/server state to ready"
+
+
+class setWeight(Cmd):
+    """Set weight command."""
+    cmdTxt = "set weight %(backend)s/%(server)s %(weight)s\r\n"
+    req_args = ['backend', 'server', 'weight']
+    helpTxt = "Set weight for a given backend/server."
+
+
+class getWeight(Cmd):
+    """Get weight command."""
+    cmdTxt = "get weight %(backend)s/%(server)s\r\n"
+    req_args = ['backend', 'server']
+    helpTxt = "Get weight for a given backend/server."
 
 
 class setServerAgent(Cmd):
@@ -122,6 +150,12 @@ class setServerState(Cmd):
     cmdTxt = "set server %(backend)s/%(server)s state %(value)s\r\n"
     req_args = ['backend', 'server', 'value']
     helpTxt = "Force a server's administrative state to a new state."
+
+
+class getServerWeight(Cmd):
+    cmdTxt = "get weight %(backend)s/%(server)s\r\n"
+    req_args = ['backend', 'server']
+    helpTxt = "Get weight for a given backend/server."
 
 
 class setServerWeight(Cmd):
@@ -278,7 +312,6 @@ class showFBEnds(Cmd):
         for e in lines:
             me = re.match(cl, e)
             if me:
-                print(e)
                 result.append(e.split(",")[0])
         return result
 
@@ -293,6 +326,15 @@ class showBackends(showFBEnds):
     """Show backends command."""
     switch = "backend"
     helpTxt = "List all Backends."
+
+
+class showErrors(Cmd):
+    """Show errors HAProxy command."""
+    cmdTxt = "show errors\r\n"
+    helpTxt = "Shows errors on HAProxy instance."
+
+    def getResultObj(self, res):
+        return res.split('\n')
 
 
 class showInfo(Cmd):
@@ -321,6 +363,14 @@ class showSessions(Cmd):
 class baseStat(Cmd):
     """Base class for stats commands."""
 
+    def getCols(self, res):
+        """Get columns from stats output."""
+        mobj = re.match("^#(?P<columns>.*)$", res, re.MULTILINE)
+
+        if mobj:
+            return dict((a, i) for i, a in enumerate(mobj.groupdict()['columns'].split(',')))
+        raise Exception("Could not parse columns from HAProxy output")
+
     def getDict(self, res):
         # clean response
         res = re.sub(r'^# ', '', res, re.MULTILINE)
@@ -329,6 +379,36 @@ class baseStat(Cmd):
 
         csv_string = StringIO(res)
         return csv.DictReader(csv_string, delimiter=',')
+
+
+class listServers(baseStat):
+    """Show servers in the given backend"""
+
+    req_args = ['backend']
+    cmdTxt = "show stat\r\n"
+    helpTxt = "Lists servers in the given backend"
+
+    def getResult(self, res):
+        return "\n".join(self.getResultObj(res))
+
+    def getResultObj(self, res):
+        servers = []
+        cols = self.getCols(res)
+
+        for line in res.split('\n'):
+            if line.startswith(self.args['backend']):
+                # Lines for server start with the name of the
+                # backend.
+
+                outCols = line.split(',')
+                if outCols[cols['svname']] != 'BACKEND':
+                    servers.append(" " .join(("Name: %s" % outCols[cols['svname']],
+                                              "Status: %s" % outCols[cols['status']],
+                                              "Weight: %s" % outCols[cols['weight']],
+                                              "bIn: %s" % outCols[cols['bin']],
+                                              "bOut: %s" % outCols[cols['bout']])))
+
+        return servers
 
 
 class showServers(baseStat):

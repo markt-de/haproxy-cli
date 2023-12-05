@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## v0.6.0
+
+### Added
+* new command: showServers (API, JSON output)
+* new command: set/getServerWeight
+* new output formats: json, bootstrap (API)
+
+### Changed
+* map commands disableServer and enableServer to `set server state maint|ready`
+* print 'None' if no output is returned by HAProxy
+* decode HAProxy socket output as UTF-8 instead of ASCII
+
 ## v0.5.0 - 2015-05-24
 
 ### Changed
@@ -13,30 +25,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## v0.4.0 - 2015-05-19
 
 ### Added
-* Added support for specifying sockets as a TCP socket:
+* Add support for specifying sockets as a TCP socket:
 * support for -k tcp://1.2.3.4:port
 * support for -k unix:///some/path
 
 ## v0.3.1 - 2013-11-04
 
 ### Fixed
-* Fixed wrong self accidentally passed to self._getResult.
+* Fix wrong self accidentally passed to self._getResult.
 
 ## v0.3.0 - 2013-10-31
 
 ### Added
-* Added new commands (frontends, backends)
+* Add new commands (frontends, backends)
 
 ## v0.2.0 - 2013-05-08
 
 ### Added
-* Added new commands (get weight, set weight, servers)
+* Add new commands (get weight, set weight, servers)
 
 ### Changed
-* Restructured command execution and arguments in haproxyctl
+* Restructure command execution and arguments in haproxyctl
 
 ### Fixed
-* Fixed problems with the buffer size while reading from the socket.
+* Fix problems with the buffer size while reading from the socket.
 
 ## v0.1.0 - 2013-05-07
 
