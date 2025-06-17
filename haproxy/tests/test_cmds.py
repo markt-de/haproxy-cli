@@ -152,6 +152,7 @@ class TestCommands(unittest.TestCase):
             "del-from-crt-list": ("del ssl crt-list /tmp/haproxy/ssl/601a7392cc9984.99301413.certlist"
                                   " /tmp/haproxy/ssl/601a70e4844b0.pem"),
             "new-ssl-cert": "new ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",
+            "set-ssl-cert": "set ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem <<\n%s" % self.pem_cert_content,
             "update-ssl-cert": "set ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem <<\n%s" % self.pem_cert_content,
             "del-ssl-cert": "del ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",
             "commit-ssl-cert": "commit ssl cert /tmp/haproxy/ssl/601a70e4844b0.pem",
@@ -257,6 +258,15 @@ class TestCommands(unittest.TestCase):
         }
         cmdOutput = cmds.newSslCrt(**args).getCmd()
         self.assertEqual(cmdOutput, self.Resp["new-ssl-cert"])
+
+    def test_setSslCrt(self):
+        """Test 'set ssl cert <certfile> <payload>' command"""
+        args = {
+            "certfile": "/tmp/haproxy/ssl/601a70e4844b0.pem",
+            "payload": "%s" % self.pem_cert_content
+        }
+        cmdOutput = cmds.setSslCrt(**args).getCmd()
+        self.assertEqual(cmdOutput, self.Resp["set-ssl-cert"])
 
     def test_updateSslCrt(self):
         """Test 'set ssl cert <certfile> <payload>' command"""
