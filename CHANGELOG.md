@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 * New API command: setSslCrt
 
+### Fixed
+* Fix loading of payload in updateSslCrt/setSslCrt
+
 ### Deprecated
 * Deprecate API command: updateSslCrt
 

@@ -261,14 +261,14 @@ class newSslCrt(Cmd):
 
 class setSslCrt(Cmd):
     """" Begin a transaction to upload the certificate into a slot in HAProxy’s memory """
-    cmdTxt = "set ssl cert %(certfile)s <<\n%(payload)s\r\n"
+    cmdTxt = "set ssl cert %(certfile)s <<\n%(payload)s\n"
     req_args = ['certfile', 'payload']
     helpTxt = "Replace a certificate file."
 
 
 class updateSslCrt(Cmd):
     """" DEPRECATED. Begin a transaction to upload the certificate into a slot in HAProxy’s memory """
-    cmdTxt = "set ssl cert %(certfile)s <<\n%(payload)s\r\n"
+    cmdTxt = "set ssl cert %(certfile)s <<\n%(payload)s\n"
     req_args = ['certfile', 'payload']
     helpTxt = "DEPRECATED. Alias for setSslCrt. Kept for compatibility reasons."
 
