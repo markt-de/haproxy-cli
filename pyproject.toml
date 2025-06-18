@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "haproxy-cli"
-version = "0.7.0"
+version = "0.7.1"
 description = "A tool to interact with HAProxy."
 readme = "README.md"
 license = "GPL-3.0-or-later"
