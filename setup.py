@@ -1,19 +1,15 @@
 import os
 from distutils.core import setup
 
-from haproxy import __version__
-
 _directory = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
       name='haproxy-cli',
-      version=__version__,
       description='A tool to interact with HAProxy',
       author='markt.de',
       author_email='github-oss-noreply@markt.de',
-      license='GPL-3',
       project_urls={
           'Bug Tracker': 'https://github.com/markt-de/haproxy-cli/issues',
           'Documentation': 'https://github.com/markt-de/haproxy-cli',
@@ -28,7 +24,6 @@ setup(
           'Development Status :: 4 - Beta',
           'Environment :: Console',
           'Intended Audience :: System Administrators',
-          'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
           'Operating System :: POSIX',
           'Operating System :: Unix',
           'Programming Language :: Python :: 3 :: Only',
@@ -40,5 +35,4 @@ setup(
           'Topic :: Internet :: Proxy Servers',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: System :: Systems Administration',
-          'Topic :: System :: Networking'],
-      test_suite="tests")
+          'Topic :: System :: Networking'])
